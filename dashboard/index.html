@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VaultRail — Escrow Dashboard</title>
+<style>
+:root {
+  --navy:#101827;
+  --panel:#172235;
+  --white:#f7f8fa;
+  --muted:#9ba8bb;
+  --teal:#39c6b0;
+  --border:#2a374a;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:var(--navy);
+  color:var(--white);
+  font:15px/1.5 system-ui,-apple-system,sans-serif;
+}
+header {
+  padding:20px 5%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid var(--border);
+}
+.brand { display:flex;align-items:center;gap:12px;font-size:21px;font-weight:750; }
+.mark {
+  width:38px;height:38px;border:2px solid var(--teal);
+  border-radius:11px;display:grid;place-items:center;color:var(--teal);
+  font-weight:800;
+}
+.badge {
+  color:var(--teal);border:1px solid #287e75;
+  border-radius:20px;padding:5px 10px;font-size:12px;
+}
+main { max-width:1100px;margin:auto;padding:30px 5%; }
+.notice {
+  padding:12px 15px;border:1px solid #92713a;
+  background:#302819;color:#f0d39b;border-radius:10px;
+  font-size:12px;margin-bottom:25px;
+}
+h1 { font-size:clamp(26px,5vw,36px);margin:0; }
+.subtitle { color:var(--muted);margin:5px 0 25px; }
+.stats { display:grid;grid-template-columns:repeat(4,1fr);gap:14px; }
+.card {
+  background:var(--panel);border:1px solid var(--border);
+  border-radius:14px;padding:18px;margin-bottom:16px;min-width:0;
+}
+.label { color:var(--muted);font-size:13px; }
+.value { font-size:25px;font-weight:750;margin-top:8px; }
+.section-title { margin:28px 0 14px;font-size:19px; }
+.project-head { display:flex;justify-content:space-between;gap:12px;align-items:start; }
+.status { font-size:12px;color:var(--teal);background:#193d3a;padding:5px 9px;border-radius:20px; }
+.progress { height:6px;background:#344155;border-radius:9px;overflow:hidden;margin:17px 0; }
+.progress div { height:100%;width:66.67%;background:var(--teal); }
+.steps { display:grid;grid-template-columns:repeat(3,1fr);gap:10px; }
+.step { border:1px solid var(--border);padding:13px;border-radius:10px; }
+.step strong { display:block;font-size:13px; }
+.step span { color:var(--muted);font-size:12px; }
+button {
+  background:var(--teal);color:#0b1d25;border:0;
+  border-radius:9px;padding:11px 15px;font-weight:750;cursor:pointer;
+}
+button.secondary { background:transparent;color:var(--white);border:1px solid var(--border); }
+.actions { display:flex;gap:10px;flex-wrap:wrap;margin-top:18px; }
+#activity { color:var(--muted);font-size:13px; }
+footer { color:var(--muted);font-size:12px;text-align:center;padding:25px; }
+@media(max-width:720px) {
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .steps { grid-template-columns:1fr; }
+  header { padding:16px 5%; }
+  main { padding-top:22px; }
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="mark" aria-hidden="true">V</div>
+    <span>VaultRail</span>
+  </div>
+  <span class="badge">PROTOTYPE</span>
+</header>
+
+<main>
+  <div class="notice">
+    CONCEPT DEMO — NOT CONNECTED TO SOLANA. All figures and interactions
+    on this page are illustrative and do not move real funds.
+  </div>
+
+  <h1>Escrow Overview</h1>
+  <p class="subtitle">Milestone-based payment workflow</p>
+
+  <div class="stats">
+    <div class="card"><div class="label">Example escrow</div><div class="value">3.5M</div><div class="label">Illustrative units</div></div>
+    <div class="card"><div class="label">Active projects</div><div class="value">1</div><div class="label">Demo data</div></div>
+    <div class="card"><div class="label">Milestones released</div><div class="value" id="released">2 / 3</div><div class="label">Simulated status</div></div>
+    <div class="card"><div class="label">Pending approval</div><div class="value" id="pending">1</div><div class="label">Demo workflow</div></div>
+  </div>
+
+  <h2 class="section-title">Active escrow</h2>
+  <section class="card">
+    <div class="project-head">
+      <div>
+        <div class="label">PROJECT · VR-DEMO-001</div>
+        <h2 style="margin:5px 0">Website Development</h2>
+        <div class="label">Client ↔ Service Provider</div>
+      </div>
+      <span class="status" id="projectStatus">In progress</span>
+    </div>
+    <div class="progress"><div id="bar"></div></div>
+    <div class="steps">
+      <div class="step"><strong>01 · Design</strong><span id="s1">Released · simulated</span></div>
+      <div class="step"><strong>02 · Development</strong><span id="s2">Released · simulated</span></div>
+      <div class="step"><strong>03 · Final delivery</strong><span id="s3">Pending approval</span></div>
+    </div>
+    <div class="actions">
+      <button id="approve">Simulate milestone approval</button>
+      <button class="secondary" id="reset">Reset demo</button>
+    </div>
+  </section>
+
+  <h2 class="section-title">Activity log</h2>
+  <section class="card">
+    <div id="activity" aria-live="polite">Demo initialized. No blockchain transactions have occurred.</div>
+  </section>
+</main>
+
+<footer>VaultRail · Solana milestone escrow concept · No real funds involved</footer>
+
+<script>
+let approved = false;
+const activity = document.getElementById('activity');
+document.getElementById('approve').addEventListener('click', function () {
+  if (approved) {
+    activity.textContent = 'The demo milestone has already been approved. Reset to replay.';
+    return;
+  }
+  approved = true;
+  document.getElementById('s3').textContent = 'Approved · simulated only';
+  document.getElementById('released').textContent = '3 / 3';
+  document.getElementById('pending').textContent = '0';
+  document.getElementById('bar').style.width = '100%';
+  document.getElementById('projectStatus').textContent = 'Demo completed';
+  activity.textContent = new Date().toLocaleTimeString() +
+    ' — Final milestone approval simulated locally. No transaction was sent to Solana.';
+  this.textContent = 'Milestone simulated';
+});
+document.getElementById('reset').addEventListener('click', function () {
+  approved = false;
+  document.getElementById('s3').textContent = 'Pending approval';
+  document.getElementById('released').textContent = '2 / 3';
+  document.getElementById('pending').textContent = '1';
+  document.getElementById('bar').style.width = '66.67%';
+  document.getElementById('projectStatus').textContent = 'In progress';
+  document.getElementById('approve').textContent = 'Simulate milestone approval';
+  activity.textContent = 'Demo reset. No blockchain transactions have occurred.';
+});
+</script>
+</body>
+</html>
