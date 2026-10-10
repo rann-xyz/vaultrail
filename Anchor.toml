@@ -1,0 +1,10 @@
+features = ["anchor-derive-accounts"]
+
+[programs]
+name = "vaultrails"
+id = "VAULTTRAILS111111111111111111111111111"
+
+[hooks]
+
+[workspace]
+members = ["program"]

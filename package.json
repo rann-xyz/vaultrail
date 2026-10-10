@@ -1,0 +1,17 @@
+{
+  "name": "vaultrails",
+  "version": "1.0.0",
+  "license": "MIT",
+  "author": "VaultRail Hackathon Team",
+  "description": "Non-custodial milestone escrow on Solana",
+  "dependencies": {
+    "typescript": "^5.0.0",
+    "dotenv": "^16.0.0",
+    "solana-web3.js": "^2.0.0",
+    "bn.js": "^5.2.0",
+    "@coral-xyz/anchor": "^0.30.0"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0"
+  }
+}
