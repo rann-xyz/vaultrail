@@ -13,6 +13,7 @@
       --panel:#ffffff;
       --border:#e3e7ec;
       --success:#10b981;
+      --error:#dc2626;
     }
     * { box-sizing:border-box; }
     body {
@@ -33,7 +34,7 @@
     }
     .brand { display:flex; align-items:center; gap:12px; }
     .brand svg { width:36px; height:36px; }
-    .brand span { font-size:20px; font-weight:600; }
+    .brand span { font-size:20px; font-weight:600; letter-spacing:-0.5px; }
     .badge {
       font-size:11px;
       font-weight:500;
@@ -46,43 +47,42 @@
     .notice {
       background:#fef3c7;
       border:1px solid #fcd34d;
-      border-radius:8px;
-      padding:12px 16px;
-      margin:16px 5%;
+      border-radius:6px;
+      padding:11px 14px;
+      margin:16px 5% 0;
       font-size:13px;
     }
     .notice strong { color:#92400e; }
     
     main { max-width:960px; margin:auto; padding:0 5%; }
-    h1 { font-size:28px; font-weight:700; margin:0 0 4px; letter-spacing:-0.5px; }
-    h2 { font-size:18px; font-weight:600; margin:0 0 12px; color:var(--muted); }
-    .escrow-ref { font-size:13px; color:var(--muted); margin-bottom:16px; }
+    h1 { font-size:28px; font-weight:700; margin:0; letter-spacing:-0.5px; }
+    h2 { font-size:18px; font-weight:600; margin:24px 0 12px 0; color:var(--muted); font-size:16px; }
+    .escrow-ref { font-size:13px; color:var(--muted); margin-bottom:12px; }
+    .escrow-detail { font-size:14px; color:var(--muted); margin-bottom:20px; }
     
     .timeline {
       display:flex;
       justify-content:space-between;
       align-items:center;
-      margin-bottom:24px;
-      padding:8px 0;
+      margin-bottom:28px;
+      padding:4px 0;
     }
     .milestone {
       flex:1;
       text-align:center;
       position:relative;
     }
-    .milestone::before {
+    .milestone:not(:first-child)::before {
       content:'';
       position:absolute;
-      top:16px;
-      left:50%;
-      width:4px;
-      height:60px;
+      top:12px;
+      left:0;
+      width:100%;
+      height:2px;
       background:var(--border);
-      transform:translateX(-50%);
     }
-    .milestone.completed::before { background:var(--teal); }
     .milestone .num {
-      width:24px; height:24px;
+      width:28px; height:28px;
       border-radius:50%;
       background:var(--teal);
       color:#fff;
@@ -90,54 +90,65 @@
       align-items:center;
       justify-content:center;
       font-weight:600;
-      font-size:13px;
+      font-size:14px;
       margin:0 auto 8px;
+      box-shadow:0 2px 4px rgba(57,198,176,0.2);
     }
-    .milestone:not(.completed) .num { background:var(--border); }
-    .milestone label { font-size:13px; color:var(--muted); }
+    .milestone.completed .num { background:var(--teal); }
+    .milestone label { font-size:13px; color:var(--muted); font-weight:500; }
     .milestone span { font-size:11px; color:var(--text); opacity:0.7; }
     
     .ledger {
       background:var(--panel);
       border:1px solid var(--border);
-      border-radius:8px;
+      border-radius:6px;
       overflow:hidden;
       margin-bottom:24px;
     }
     .ledger-header {
       display:grid;
-      grid-template-columns:1fr 80px 80px 80px;
+      grid-template-columns:1fr 70px 90px 70px;
       padding:12px 16px;
       border-bottom:1px solid var(--border);
-      font-size:12px;
+      font-size:11px;
       color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      font-weight:500;
     }
     .ledger-row {
       display:grid;
-      grid-template-columns:1fr 80px 80px 80px;
+      grid-template-columns:1fr 70px 90px 70px;
       padding:12px 16px;
       border-bottom:1px solid var(--border);
       font-size:14px;
     }
     .ledger-row:last-child { border-bottom:none; }
-    .ledger-row.status { color:var(--teal); font-weight:500; }
-    .ledger-amount { font-family:monospace; font-weight:500; }
+    .ledger-label { color:var(--muted); }
+    .ledger-amount { font-family:monospace; font-weight:500; color:var(--text); }
+    .ledger-status { font-size:12px; font-weight:500; }
+    .status-pending { color:var(--muted); }
+    .status-released { color:var(--teal); }
+    .status-deposited { color:var(--teal); }
     .btn {
       padding:10px 16px;
       border:none;
       border-radius:6px;
       cursor:pointer;
       font-weight:500;
-      transition:background 0.15s;
+      font-size:14px;
+      transition:all 0.15s;
     }
-    .btn-primary { background:var(--teal); color:#0b1d25; }
-    .btn-primary:hover { opacity:0.9; }
+    .btn-primary {
+      background:var(--teal);
+      color:#0b1d25;
+    }
+    .btn-primary:hover { opacity:0.9; transform:translateY(-1px); }
     .btn-secondary {
-      background:transparent;
-      color:var(--muted);
-      border:1px solid var(--border);
+      background:var(--border);
+      color:var(--text);
     }
-    .btn-secondary:hover { background:rgba(0,0,0,0.03); }
+    .btn-secondary:hover { opacity:0.85; }
     .actions { display:flex; gap:8px; margin-top:16px; }
     
     footer {
@@ -151,7 +162,7 @@
     
     @media (max-width:480px) {
       .ledger-header, .ledger-row {
-        grid-template-columns:1fr 60px 60px;
+        grid-template-columns:1fr 55px 70px;
         gap:8px;
       }
       .timeline { padding:4px 0; }
@@ -181,10 +192,9 @@
 
     <h1>Escrow Dashboard</h1>
     <p class="escrow-ref">ESCROW • VR-DEMO-001</p>
-    
-    <h2>Website Development</h2>
-    <p style="color:var(--muted); margin:0 0 16px; font-size:14px;">Client: <strong>alex@example.com</strong> → Recipient: <strong>distributor@agency.com</strong></p>
+    <p class="escrow-detail"><strong>Project:</strong> Website Development &bull; <strong>Client:</strong> alex@example.com → <strong>Recipient:</strong> distributor@agency.com</p>
 
+    <h2>Milestone Progress</h2>
     <div class="timeline">
       <div class="milestone completed">
         <div class="num">1</div>
@@ -203,37 +213,37 @@
       </div>
     </div>
 
-    <h2>Transaction Ledger</h2>
+    <h2>Transaction History</h2>
     <div class="ledger">
       <div class="ledger-header">
         <span>Action</span>
-        <span>Date</span>
         <span>Amount</span>
+        <span>Date</span>
         <span>Status</span>
       </div>
       <div class="ledger-row">
-        <span>Create escrow</span>
-        <span>Oct 10, 10:30 AM</span>
+        <span class="ledger-label">Create escrow</span>
         <span class="ledger-amount">3,500,000 USDC</span>
-        <span class="status">Deposited</span>
+        <span>Oct 10, 10:30 AM</span>
+        <span class="ledger-status status-deposited">Deposited</span>
       </div>
       <div class="ledger-row">
-        <span>Release milestone 1</span>
+        <span class="ledger-label">Release milestone 1</span>
+        <span class="ledger-amount">1,166,666 USDC</span>
         <span>Oct 11, 9:15 AM</span>
-        <span class="ledger-amount">1,166,666 USDC</span>
-        <span class="status">Released</span>
+        <span class="ledger-status status-released">Released</span>
       </div>
       <div class="ledger-row">
-        <span>Release milestone 2</span>
+        <span class="ledger-label">Release milestone 2</span>
+        <span class="ledger-amount">1,166,666 USDC</span>
         <span>Oct 11, 9:16 AM</span>
-        <span class="ledger-amount">1,166,666 USDC</span>
-        <span class="status">Released</span>
+        <span class="ledger-status status-released">Released</span>
       </div>
       <div class="ledger-row">
-        <span>Release milestone 3</span>
-        <span>-- -- --</span>
+        <span class="ledger-label">Release milestone 3</span>
         <span class="ledger-amount">1,166,666 USDC</span>
-        <span id="milestone3-status">Pending approval</span>
+        <span>-- -- --</span>
+        <span class="ledger-status status-pending" id="milestone3-status">Pending approval</span>
       </div>
     </div>
 
@@ -243,7 +253,7 @@
     </div>
 
     <h2>Activity Log</h2>
-    <div id="activity" style="background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px 16px; font-size:13px; color:var(--muted);">
+    <div id="activity" style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:12px 16px; font-size:13px; color:var(--muted);">
       Demo initialized. No blockchain transactions have occurred.
     </div>
   </main>
