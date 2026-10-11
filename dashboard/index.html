@@ -6,189 +6,204 @@
   <title>VaultRail — Solana Milestone Escrow</title>
   <style>
     :root {
-      --bg:#f7f8fa;
-      --text:#101827;
-      --muted:#5a647c;
-      --teal:#39c6b0;
-      --panel:#ffffff;
-      --border:#e3e7ec;
-      --success:#10b981;
-      --error:#dc2626;
+      --bg: #f7f8fa;
+      --text: #101827;
+      --muted: #5a647c;
+      --teal: #39c6b0;
+      --panel: #ffffff;
+      --border: #e3e7ec;
+      --success: #10b981;
     }
     * { box-sizing:border-box; }
     body {
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;
-      font-size:15px;
-      line-height:1.55;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
     }
+    
+    /* Layout */
     header {
-      background:var(--panel);
-      border-bottom:1px solid var(--border);
-      padding:16px 5%;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+      background: var(--panel);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .brand { display:flex; align-items:center; gap:12px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
     .logo {
-      width:40px;
-      height:40px;
-      border-radius:8px;
-      overflow:hidden;
-      background:linear-gradient(135deg, #0284c7, #0d9488);
-      flex-shrink:0;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
     }
     .logo img {
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      display:block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
     }
-    .brand span { font-size:20px; font-weight:600; letter-spacing:-0.5px; }
+    .brand span { font-size: 20px; font-weight: 600; letter-spacing: -0.5px; }
     .badge {
-      font-size:11px;
-      font-weight:500;
-      color:#287e75;
-      background:#e6fffa;
-      border:1px solid #a7f3d3;
-      border-radius:999px;
-      padding:4px 10px;
+      font-size: 11px;
+      font-weight: 500;
+      color: #287e75;
+      background: #e6fffa;
+      border: 1px solid #a7f3d3;
+      border-radius: 999px;
+      padding: 4px 10px;
     }
+    
+    main { max-width: 960px; margin: 0 auto; padding: 0 5%; }
+    
+    /* Typography */
+    h1 { font-size: 26px; font-weight: 700; margin: 0; letter-spacing: -0.5px; }
+    h2 { font-size: 16px; font-weight: 600; margin: 24px 0 12px; color: var(--muted); }
+    
+    /* Notice */
     .notice {
-      background:#fef3c7;
-      border:1px solid #fcd34d;
-      border-radius:6px;
-      padding:11px 14px;
-      margin:16px 5% 0;
-      font-size:13px;
+      background: #fef3c7;
+      border: 1px solid #fcd34d;
+      border-radius: 6px;
+      padding: 11px 14px;
+      margin: 16px 5% 0;
+      font-size: 13px;
     }
-    .notice strong { color:#92400e; }
+    .notice strong { color: #92400e; }
     
-    main { max-width:960px; margin:auto; padding:0 5%; }
-    h1 { font-size:28px; font-weight:700; margin:0; letter-spacing:-0.5px; }
-    h2 { font-size:16px; font-weight:600; margin:24px 0 12px 0; color:var(--muted); }
-    .escrow-ref { font-size:13px; color:var(--muted); margin-bottom:12px; }
-    .escrow-detail { font-size:14px; color:var(--muted); margin-bottom:20px; }
+    /* Escrow info */
+    .escrow-ref { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+    .escrow-detail { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
     
+    /* Timeline */
     .timeline {
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:28px;
-      padding:4px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 28px;
+      padding: 4px 0;
     }
     .milestone {
-      flex:1;
-      text-align:center;
-      position:relative;
+      flex: 1;
+      text-align: center;
+      position: relative;
     }
     .milestone:not(:first-child)::before {
-      content:'';
-      position:absolute;
-      top:12px;
-      left:0;
-      width:100%;
-      height:2px;
-      background:var(--border);
+      content: '';
+      position: absolute;
+      top: 12px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
     }
     .milestone .num {
-      width:28px; height:28px;
-      border-radius:50%;
-      background:var(--teal);
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:600;
-      font-size:14px;
-      margin:0 auto 8px;
-      box-shadow:0 2px 4px rgba(57,198,176,0.2);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 13px;
+      margin: 0 auto 8px;
     }
-    .milestone.completed .num { background:var(--teal); }
-    .milestone label { font-size:13px; color:var(--muted); font-weight:500; }
-    .milestone span { font-size:11px; color:var(--text); opacity:0.7; }
+    .milestone label { font-size: 13px; color: var(--muted); font-weight: 500; }
+    .milestone span { font-size: 12px; color: var(--text); opacity: 0.7; }
     
+    /* Ledger */
     .ledger {
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:6px;
-      overflow:hidden;
-      margin-bottom:24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+    .ledger-header, .ledger-row {
+      display: grid;
+      grid-template-columns: 1fr 80px 90px 70px;
+      padding: 12px 16px;
+      font-size: 13px;
     }
     .ledger-header {
-      display:grid;
-      grid-template-columns:1fr 70px 90px 70px;
-      padding:12px 16px;
-      border-bottom:1px solid var(--border);
-      font-size:11px;
-      color:var(--muted);
-      text-transform:uppercase;
-      letter-spacing:0.5px;
-      font-weight:500;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 500;
     }
     .ledger-row {
-      display:grid;
-      grid-template-columns:1fr 70px 90px 70px;
-      padding:12px 16px;
-      border-bottom:1px solid var(--border);
-      font-size:14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 14px;
     }
-    .ledger-row:last-child { border-bottom:none; }
-    .ledger-label { color:var(--muted); }
-    .ledger-amount { font-family:monospace; font-weight:500; color:var(--text); }
-    .ledger-status { font-size:12px; font-weight:500; }
-    .status-pending { color:var(--muted); }
-    .status-released { color:var(--teal); }
-    .status-deposited { color:var(--teal); }
+    .ledger-row:last-child { border-bottom: none; }
+    .ledger-label { color: var(--muted); }
+    .ledger-amount { font-family: monospace; font-weight: 500; color: var(--text); }
+    .ledger-status { font-size: 12px; font-weight: 500; }
+    .status-pending { color: var(--muted); }
+    .status-released { color: var(--teal); }
+    .status-deposited { color: var(--teal); }
+    
+    /* Buttons */
     .btn {
-      padding:10px 16px;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
-      font-weight:500;
-      font-size:14px;
-      transition:all 0.15s;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      font-size: 14px;
+      transition: opacity 0.15s;
     }
     .btn-primary {
-      background:var(--teal);
-      color:#0b1d25;
+      background: var(--teal);
+      color: #0b1d25;
     }
-    .btn-primary:hover { opacity:0.9; transform:translateY(-1px); }
+    .btn-primary:hover { opacity: 0.9; }
     .btn-secondary {
-      background:var(--border);
-      color:var(--text);
+      background: var(--border);
+      color: var(--text);
     }
-    .btn-secondary:hover { opacity:0.85; }
-    .actions { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+    .btn-secondary:hover { opacity: 0.85; }
+    .actions { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
     
+    /* Activity log */
+    .activity-log {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    
+    /* Footer */
     footer {
-      text-align:center;
-      padding:24px 5%;
-      font-size:12px;
-      color:var(--muted);
-      border-top:1px solid var(--border);
-      margin-top:40px;
+      text-align: center;
+      padding: 24px 5%;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 40px;
     }
     
-    @media (max-width:480px) {
+    @media (max-width: 480px) {
       .ledger-header, .ledger-row {
-        grid-template-columns:1fr 55px 70px;
-        gap:8px;
+        grid-template-columns: 1fr 65px 70px;
+        gap: 8px;
       }
-      .timeline { padding:4px 0; }
+      .timeline { padding: 4px 0; }
     }
   </style>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%230284c7;stop-opacity:1'/%3E%3Cstop offset='100%25' style='stop-color:%230d9488;stop-opacity:1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ctext x='0' y='45' font-family='system-ui,-apple-system,sans-serif' font-weight='800' font-size='42' fill='url(%23grad)'%3EVault%3Cspan style='opacity:0.7;fill:%23ffffff'%3ERail%3C/span%3E%3C/text%3E%3Ccircle cx='175' cy='20' r='12' fill='%2339c6b0' stroke='%23172235' stroke-width='2'/%3E%3Ctext x='177' y='26' font-family='system-ui,-apple-system,sans-serif' font-weight='700' font-size='14' fill='%23172235'%3Eescrow%3C/text%3E%3C/svg%3E">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%230284c7'/%3E%3Cstop offset='100%25' style='stop-color:%230d9488'/%3E%3C/linearGradient%3E%3Ctext x='0' y='45' fill='url(%23g)' font-family='sans-serif' font-weight='800' font-size='42'>Vault<span style='fill:#fff;opacity:0.7'>Rail</span></text>%3Ccircle cx='175' cy='20' r='12' fill='%2339c6b0' stroke='%23172235' stroke-width='2'/%3E%3Ctext x='177' y='26' fill='%23172235' font-family='sans-serif' font-size='14'>escrow</text>%3C/text%3E%3C/svg%3E">
 </head>
 <body>
   <header>
     <div class="brand">
-      <div class="logo" aria-label="VaultRail logo">
-        <img src="assets/vaultrail-logo.jpg" alt="VaultRail logo" onerror="this.parentNode.innerHTML='<svg viewBox=\"0 0 200 60\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"logoGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" style=\"stop-color:#0284c7;stop-opacity:1\" /><stop offset=\"100%\" style=\"stop-color:#0d9488;stop-opacity:1\" /></linearGradient></defs><text x=\"0\" y=\"45\" font-family=\"system-ui,-apple-system,sans-serif\" font-weight=\"800\" font-size=\"42\" fill=\"url(#logoGrad)\">Vault<span style=\"opacity:0.7;fill:#ffffff\">Rail</span></text><circle cx=\"175\" cy=\"20\" r=\"12\" fill=\"#39c6b0\" stroke=\"#172235\" stroke-width=\"2\"/><text x=\"177\" y=\"26\" font-family=\"system-ui,-apple-system,sans-serif\" font-weight=\"700\" font-size=\"14\" fill=\"#172235\">escrow</text></svg>'">
-      </div>
+      <img src="assets/vaultrail-logo.jpg" alt="VaultRail logo" onerror="this.style.display='none';this.parentNode.querySelector('.fallback').style.display='block';">
       <span>VaultRail</span>
     </div>
     <span class="badge">PROTOTYPE</span>
@@ -263,7 +278,7 @@
     </div>
 
     <h2>Activity Log</h2>
-    <div id="activity" style="background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:12px 16px; font-size:13px; color:var(--muted);">
+    <div id="activity" class="activity-log">
       Demo initialized. No blockchain transactions have occurred.
     </div>
   </main>
