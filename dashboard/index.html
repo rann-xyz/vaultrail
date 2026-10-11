@@ -33,7 +33,20 @@
       align-items:center;
     }
     .brand { display:flex; align-items:center; gap:12px; }
-    .brand svg { width:36px; height:36px; }
+    .logo {
+      width:40px;
+      height:40px;
+      border-radius:8px;
+      overflow:hidden;
+      background:linear-gradient(135deg, #0284c7, #0d9488);
+      flex-shrink:0;
+    }
+    .logo img {
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      display:block;
+    }
     .brand span { font-size:20px; font-weight:600; letter-spacing:-0.5px; }
     .badge {
       font-size:11px;
@@ -56,7 +69,7 @@
     
     main { max-width:960px; margin:auto; padding:0 5%; }
     h1 { font-size:28px; font-weight:700; margin:0; letter-spacing:-0.5px; }
-    h2 { font-size:18px; font-weight:600; margin:24px 0 12px 0; color:var(--muted); font-size:16px; }
+    h2 { font-size:16px; font-weight:600; margin:24px 0 12px 0; color:var(--muted); }
     .escrow-ref { font-size:13px; color:var(--muted); margin-bottom:12px; }
     .escrow-detail { font-size:14px; color:var(--muted); margin-bottom:20px; }
     
@@ -149,7 +162,7 @@
       color:var(--text);
     }
     .btn-secondary:hover { opacity:0.85; }
-    .actions { display:flex; gap:8px; margin-top:16px; }
+    .actions { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
     
     footer {
       text-align:center;
@@ -173,12 +186,9 @@
 <body>
   <header>
     <div class="brand">
-      <svg viewBox="0 0 200 60" aria-hidden="true">
-        <defs><linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#0284c7;stop-opacity:1" /><stop offset="100%" style="stop-color:#0d9488;stop-opacity:1" /></linearGradient></defs>
-        <text x="0" y="45" font-family="system-ui,-apple-system,sans-serif" font-weight="800" font-size="42" fill="url(#logoGrad)">Vault<span style="opacity:0.7;fill:#ffffff">Rail</span></text>
-        <circle cx="175" cy="20" r="12" fill="#39c6b0" stroke="#172235" stroke-width="2"/>
-        <text x="177" y="26" font-family="system-ui,-apple-system,sans-serif" font-weight="700" font-size="14" fill="#172235">escrow</text>
-      </svg>
+      <div class="logo" aria-label="VaultRail logo">
+        <img src="assets/vaultrail-logo.jpg" alt="VaultRail logo" onerror="this.parentNode.innerHTML='<svg viewBox=\"0 0 200 60\" xmlns=\"http://www.w3.org/2000/svg\"><defs><linearGradient id=\"logoGrad\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"0%\"><stop offset=\"0%\" style=\"stop-color:#0284c7;stop-opacity:1\" /><stop offset=\"100%\" style=\"stop-color:#0d9488;stop-opacity:1\" /></linearGradient></defs><text x=\"0\" y=\"45\" font-family=\"system-ui,-apple-system,sans-serif\" font-weight=\"800\" font-size=\"42\" fill=\"url(#logoGrad)\">Vault<span style=\"opacity:0.7;fill:#ffffff\">Rail</span></text><circle cx=\"175\" cy=\"20\" r=\"12\" fill=\"#39c6b0\" stroke=\"#172235\" stroke-width=\"2\"/><text x=\"177\" y=\"26\" font-family=\"system-ui,-apple-system,sans-serif\" font-weight=\"700\" font-size=\"14\" fill=\"#172235\">escrow</text></svg>'">
+      </div>
       <span>VaultRail</span>
     </div>
     <span class="badge">PROTOTYPE</span>
