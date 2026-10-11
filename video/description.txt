@@ -1,0 +1,43 @@
+VaultRail Dashboard Demo - Hackathon 2026
+
+DISCLAIMER: VaultRail is currently a prototype. The dashboard is not connected to Solana, and on-chain transactions have not been demonstrated. All interactions in this demo are simulated locally in the browser. No real funds are involved.
+
+---
+
+Welcome to VaultRail, a milestone-based escrow prototype built for the Crypto World's Fair Hackathon and CertiK Security Audit Credits track.
+
+This video demonstrates the VaultRail dashboard interface at https://vaultrail-dashboard.vercel.app/. Everything you see is a simulation - no blockchain transactions are executed during this demo.
+
+Key Features Shown:
+- Non-custodial escrow with milestone tracking
+- Visual timeline showing work progress
+- Transaction ledger with status indicators
+- Simulated client approval workflow
+- Demo reset functionality
+
+Technical Stack:
+- Frontend: Vanilla HTML/CSS/JavaScript
+- Design: Premium fintech aesthetic
+- Hosting: Vercel (static HTML)
+- Smart Contract: Anchor 0.30.1 (Solana - not yet compiled)
+
+The escrow interface shows:
+- 3.5 million USDC total value (illustrative)
+- 3 milestones over the project lifecycle
+- 2 milestones released, 1 pending approval
+- Complete audit trail in the transaction ledger
+
+Important Notes:
+- This is a concept demo, not production software
+- Real Solana deployment requires x86_64 environment
+- Anchor program compilation blocked on ARM64 Android
+- Dashboard runs entirely in the browser, no backend
+
+For the actual smart contract code, see the repository at https://github.com/rann-xyz/vaultrail
+
+#VaultRail #Escrow #Solana #SmartContract #Hackathon #Fintech #Demo
+
+---
+
+Description for YouTube/Loom upload:
+⚠️ PROTOTYPE DEMO ONLY - This is a simulated milestone escrow dashboard for the VaultRail project. No blockchain transactions are executed. All figures and interactions are illustrative. This demo was recorded for the Crypto World's Fair Hackathon submission.
