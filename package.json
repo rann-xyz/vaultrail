@@ -4,6 +4,11 @@
   "license": "MIT",
   "author": "VaultRail Hackathon Team",
   "description": "Non-custodial milestone escrow on Solana",
+  "scripts": {
+    "test": "mocha tests/vaultrails.ts",
+    "record": "node tools/video/record-dashboard.js",
+    "record:ci": "DASHBOARD_URL=https://vaultrail-dashboard.vercel.app/ node tools/video/record-dashboard.js"
+  },
   "dependencies": {
     "typescript": "^5.0.0",
     "dotenv": "^16.0.0",
@@ -12,6 +17,7 @@
     "@coral-xyz/anchor": "^0.30.0"
   },
   "devDependencies": {
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "playwright": "^1.47.0"
   }
 }
